@@ -341,6 +341,11 @@
         $(".fundName").click(function () {
             var tr = $(this).parents('tr');
             var fundId = tr.find("td:eq(0)").text();
+            var fundName = tr.find("td:eq(2)").text();
+
+            $('#subsFundId').val(fundId);
+            $('#subsFundName').val(fundName);
+            $('#subsTitle').text("SUBSCRIBERS OF " + fundName + " (Total Investment Amount: 0)");
 
             $.ajax({
                 type: "POST",
@@ -354,10 +359,7 @@
 
                     $.each(subsList, function (index, value) {
                         if (value.fundid != null) {
-                            $('#subsTitle').text("SUBSCRIBERS OF " + value.fundname + " (Total Investment Amount: " + value.totalinvestmentamount + ")");
-
-                            $('#subsFundId').val(value.fundid);
-                            $('#subsFundName').val(value.fundname);
+                            $('#subsTitle').text("SUBSCRIBERS OF " + fundName + " (Total Investment Amount: " + value.totalinvestmentamount + ")");
 
                             var trTop = " ";
                             if (index != 0)
