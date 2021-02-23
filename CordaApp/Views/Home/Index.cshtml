@@ -342,6 +342,7 @@
             var tr = $(this).parents('tr');
             var fundId = tr.find("td:eq(0)").text();
             var fundName = tr.find("td:eq(2)").text();
+            var fundRate = parseInt(tr.find("td:eq(3)").text());
 
             $('#subsFundId').val(fundId);
             $('#subsFundName').val(fundName);
@@ -361,6 +362,8 @@
                         if (value.fundid != null) {
                             $('#subsTitle').text("SUBSCRIBERS OF " + fundName + " (Total Investment Amount: " + value.totalinvestmentamount + ")");
 
+                            var cordaRate = (value.investmentamount / value.totalinvestmentamount) * (fundRate / 100);
+
                             var trTop = " ";
                             if (index != 0)
                                 trTop = " mg-t-20 ";
@@ -368,7 +371,7 @@
                                 "<td name='fundId' class='d-none'>" + value.fundid + "</td>" +
                                 "<td name='userId' class='d-none'>" + value.userid + "</td>" +
                                 "<td name='subsName' class='col-lg-6 customTd mg-r-20 subsName' style='background: rgba(232, 235, 240, 0.4)' onclick='onColumnSelect(this)'>" + value.investorname + "</td>" +
-                                "<td name='subsAmount' class='col-lg-6 customTd' style='background: rgba(232, 235, 240, 0.4)'>$ " + value.investmentamount + "</td>" +
+                                "<td name='subsAmount' class='col-lg-6 customTd' style='background: rgba(232, 235, 240, 0.4)'>$ " + value.investmentamount +"</td>" +
                                 "</tr>");
                         }
                     });
