@@ -242,7 +242,7 @@ namespace CordaApp.Controllers
                     Investor inv = new Investor
                     {
                         investorName = subscriber["investorname"].ToString(),
-                        investorAmount = invAmount
+                        investorAmount = Math.Round(invAmount,2)
                     };
                     invList.Add(inv);
                 }
