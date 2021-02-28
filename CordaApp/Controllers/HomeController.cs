@@ -81,7 +81,7 @@ namespace CordaApp.Controllers
                             {
                                 double subInvAmount = double.Parse(subsItem["investmentamount"].ToString());
                                 totalInvAmount = double.Parse(subsItem["totalinvestmentamount"].ToString());
-                               
+
                                 totalFundAmount += subInvAmount;
 
                                 string invName = "O=" + subsItem["investorname"].ToString() + ", L = New York, C = US";
@@ -239,31 +239,29 @@ namespace CordaApp.Controllers
                         owner = owner.Replace(" ", null);
                         if (invName == owner && fundId.ToString() == cordaFundId)
                         {
-                            if(month == cordaMonth)
+                            if (month == cordaMonth)
                                 invAmount += Convert.ToDouble(cordaItem["state"]["data"]["amount"]);
 
-                            if (int.Parse(month) > int.Parse(cordaMonth)) 
+                            InvestorInv investment = new InvestorInv
                             {
-                                InvestorInv investment = new InvestorInv
-                                {
-                                    investorName = subscriber["investorname"].ToString(),
-                                    fundName = subscriber["fundname"].ToString(),
-                                    month = cordaItem["state"]["data"]["month"].ToString(),
-                                    amount = Math.Round(Convert.ToDouble(cordaItem["state"]["data"]["amount"]), 2).ToString().Replace(",",".")
-                                };
+                                investorName = subscriber["investorname"].ToString(),
+                                fundName = subscriber["fundname"].ToString(),
+                                month = cordaItem["state"]["data"]["month"].ToString(),
+                                amount = Math.Round(Convert.ToDouble(cordaItem["state"]["data"]["amount"]), 2)
+                            };
 
-                                int invIndex = invInvestmentList.FindIndex(x => x.fundName.Contains(subscriber["fundname"].ToString()) && x.investorName.Contains(subscriber["investorname"].ToString()) && x.month.Contains(cordaMonth));
+                            int invIndex = invInvestmentList.FindIndex(x => x.fundName.Contains(subscriber["fundname"].ToString()) && x.investorName.Contains(subscriber["investorname"].ToString()) && x.month.Contains(cordaMonth));
 
-                                if (invIndex != -1)
-                                {
-                                    double invdistAmount = Convert.ToDouble(invInvestmentList[invIndex].amount.ToString()) + Convert.ToDouble(cordaItem["state"]["data"]["amount"].ToString());
-                                    invdistAmount = Math.Round(invdistAmount,2);
-                                    invInvestmentList[invIndex].amount = invdistAmount.ToString().Replace(",", ".");
-                                }
-      
-                                else
-                                    invInvestmentList.Add(investment);
+                            if (invIndex != -1)
+                            {
+                                double invdistAmount = Convert.ToDouble(invInvestmentList[invIndex].amount) + Convert.ToDouble(cordaItem["state"]["data"]["amount"]);
+                                invdistAmount = Math.Round(invdistAmount, 2);
+                                invInvestmentList[invIndex].amount = invdistAmount;
                             }
+
+                            else
+                                invInvestmentList.Add(investment);
+
 
 
                         }
@@ -273,7 +271,7 @@ namespace CordaApp.Controllers
                     Investor inv = new Investor
                     {
                         investorName = subscriber["investorname"].ToString(),
-                        investorAmount = Math.Round(invAmount,2),
+                        investorAmount = Math.Round(invAmount, 2),
                         investmentList = invInvestmentList
                     };
                     invList.Add(inv);
@@ -326,7 +324,7 @@ namespace CordaApp.Controllers
                                 reqValues.Add(new KeyValuePair<string, string>("payName", "Dollar"));
                                 reqValues.Add(new KeyValuePair<string, string>("amount", distAmount));
                                 reqValues.Add(new KeyValuePair<string, string>("owner", owner));
-                                reqValues.Add(new KeyValuePair<string, string>("rate", Math.Round(cordaRate, 2).ToString().Replace(",",".")));
+                                reqValues.Add(new KeyValuePair<string, string>("rate", Math.Round(cordaRate, 2).ToString().Replace(",", ".")));
                                 reqValues.Add(new KeyValuePair<string, string>("month", distMonth.ToString()));
                                 reqValues.Add(new KeyValuePair<string, string>("distribution", distAmount));
                                 reqValues.Add(new KeyValuePair<string, string>("fundid", fundId));

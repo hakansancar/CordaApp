@@ -10,6 +10,6 @@ namespace CordaApp.Models
         public string investorName { get; set; }
         public string fundName { get; set; }
         public string month { get; set; }
-        public string amount { get; set; }
+        public double amount { get; set; }
     }
 }
