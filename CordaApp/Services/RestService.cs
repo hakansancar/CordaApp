@@ -29,11 +29,11 @@ namespace CordaApp.Services
 
         }
 
-        public async Task<string> httpReqService(List<KeyValuePair<string, string>> parameters)
+        public async Task<string> httpReqService(List<KeyValuePair<string, string>> parameters, string api)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://52.170.25.149:8080");
-            var request = new HttpRequestMessage(HttpMethod.Post, "/startIssuePay");
+            var request = new HttpRequestMessage(HttpMethod.Post, api);
 
             request.Content = new FormUrlEncodedContent(parameters);
             var response = await client.SendAsync(request);

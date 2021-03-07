@@ -169,6 +169,24 @@
 
 </div>
 
+<div class="overlay-body-spinner d-none" id="pageSpinner" style="background-color: rgba(255,255,255,0.7);z-index: 1200">
+    <div class="sk-circle wd-100 ht-100">
+        <div class="sk-circle1 sk-child"></div>
+        <div class="sk-circle2 sk-child"></div>
+        <div class="sk-circle3 sk-child"></div>
+        <div class="sk-circle4 sk-child"></div>
+        <div class="sk-circle5 sk-child"></div>
+        <div class="sk-circle6 sk-child"></div>
+        <div class="sk-circle7 sk-child"></div>
+        <div class="sk-circle8 sk-child"></div>
+        <div class="sk-circle9 sk-child"></div>
+        <div class="sk-circle10 sk-child"></div>
+        <div class="sk-circle11 sk-child"></div>
+        <div class="sk-circle12 sk-child">
+        </div>
+    </div>
+</div>
+
 @section Scripts {
 
     <script type="text/javascript">
@@ -177,10 +195,12 @@
 
         $(document).ready(function () {
 
-
             $("#addDist").click(function () {
                 var distAmountVal = $('#distAmountInp').val();
                 var distMonthVal = $('#distMonthInp').val();
+
+                $("#pageSpinner").removeClass("d-none");
+                $("#pageSpinner").addClass("d-flex");
 
                 $.ajax({
                     type: "POST",
